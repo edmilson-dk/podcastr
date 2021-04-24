@@ -11,4 +11,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+
+  > header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 }
