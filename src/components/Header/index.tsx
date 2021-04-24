@@ -5,7 +5,7 @@ export function Header() {
     <header className={styles.headerContainer}>
       <img src="/logo.svg" alt="Logo"/>
       <p>O melhor para você ouvir, sempre</p>
-      <span>Qui, 8 Abril</span>
+      <span>Qua, 24 Abril</span>
     </header>
   );
 }
