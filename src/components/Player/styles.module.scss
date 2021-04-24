@@ -22,6 +22,14 @@
     font-family: Lexend, sans-serif;
     font-weight: 600;
   }
+
+  footer {
+    align-self: stretch;
+
+    &.empty {
+      opacity: 0.5;
+    }
+  }
 }
 
 .emptyPlayer {
@@ -37,4 +45,37 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+
+  span {
+    display: inline-block;
+    width: 4rem;
+    text-align: center;
+  }
+
+  .slider {
+    flex: 1;
+
+    .emptySlider {
+      display: block;
+      width: 100%;
+      height: 4px;
+      background-color: var(--purple-300);
+      border-radius: 2px;
+    }
+  }
+}
+
+.buttons {
+  button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+  }
 }
