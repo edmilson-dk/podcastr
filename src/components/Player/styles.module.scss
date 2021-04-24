@@ -15,6 +15,11 @@
   > header {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 2rem;
+  }
+
+  strong {
+    font-family: Lexend, sans-serif;
+    font-weight: 600;
   }
 }
