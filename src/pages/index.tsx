@@ -1,12 +1,34 @@
 import Head from "next/head";
+import { GetStaticProps } from "next";
 
-export default function Home() {
+type Episode = {
+  id: string;
+  title: string;
+  members: string;
+}
+
+type HomeProps = {
+  episodes: Episode[];
+}
+
+export default function Home(props: HomeProps) {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Podcastr - Home</title>
       </Head>
     </div>
-  )
+  );
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await fetch("http://localhost:3333/episodes");
+  const data = await response.json();
+
+  return {
+    props: {
+      episodes: data,
+    },
+    revalidate: 120 * 8,
+  };
 }
