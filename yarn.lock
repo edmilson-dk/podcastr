@@ -819,11 +819,6 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.8.tgz#d2266a792729fb227cd216fb572f43728e1ad340"
   integrity sha512-jXKhWqXPmlUeoQnF/EhTtTl4C9SnrxSH/jZUih3jmO6lBKr99rP3/+FmrMj4EFpOXzMtXHAZkd3x0E6h6Fgflw==
 
-data-fn@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/data-fn/-/data-fn-1.0.0.tgz#f2e0bd0398393892b38997564537814ada6b2fc4"
-  integrity sha1-8uC9A5g5OJKziZdWRTeBStprL8Q=
-
 data-uri-to-buffer@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-3.0.1.tgz#594b8973938c5bc2c33046535785341abc4f3636"
