@@ -4,6 +4,7 @@ import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 import api from "../services/api";
+import { formatAudioDurationToString } from "../utils/formatAudioDurationToString";
 
 type Episode = {
   id: string;
@@ -42,6 +43,7 @@ export const getStaticProps: GetStaticProps = async () => {
       members: episode.members,
       publishedAt: format(parseISO(episode.published_at), 'd MM yy', { locale: ptBR }),
       duration: Number(episode.file.duration),
+      durationAsString: formatAudioDurationToString(Number(episode.file.duration)),
       description: episode.description,
       url: episode.file.url,
     }
