@@ -9,6 +9,12 @@ import { formatAudioDurationToString } from "../utils/formatAudioDurationToStrin
 type Episode = {
   id: string;
   title: string;
+  thumbnail: string;
+  description: string;
+  duration: number;
+  durationAsString: string;
+  url: string
+  publishedAt: string;
   members: string;
 }
 
@@ -27,7 +33,7 @@ export default function Home(props: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await api.get("episodes?_limit=12&_sort=published_at&_order=desc", {
+  const { data } = await api.get("episodes", {
     params: {
       _limit: 12,
       _sort: "published_at",
@@ -51,8 +57,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      episodes: data,
+      episodes,
     },
-    revalidate: 120 * 8,
+    revalidate: 3600 * 8,
   };
 }
