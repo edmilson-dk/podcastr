@@ -6,6 +6,8 @@ import { ptBR } from "date-fns/locale";
 import api from "../services/api";
 import { formatAudioDurationToString } from "../utils/formatAudioDurationToString";
 
+import styles from "../styles/home.module.scss";
+
 type Episode = {
   id: string;
   title: string;
@@ -19,16 +21,48 @@ type Episode = {
 }
 
 type HomeProps = {
-  episodes: Episode[];
+  latestEpisodes: Episode[];
+  allEpisodes: Episode[];
 }
 
-export default function Home(props: HomeProps) {
+export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
   return (
-    <div>
+    <main className={styles.homePage}>
       <Head>
         <title>Podcastr - Home</title>
       </Head>
-    </div>
+
+      <section className={styles.latestEpisodes}>
+        <h2>últimos lançamentos</h2>
+
+        <ul>
+          {
+            latestEpisodes.map(episode => {
+              return (
+                <li key={episode.id}>
+                  <img src={episode.thumbnail} alt={episode.title} />
+
+                  <div className={styles.episodeDetails}>
+                    <a href="">{episode.title}</a>
+                    <p>{episode.members}</p>
+                    <span>{episode.publishedAt}</span>
+                    <span>{episode.durationAsString}</span>
+                  </div>
+
+                  <button type="button">
+                    <img src="/play-green.svg" />
+                  </button>
+                </li>
+              )
+            })
+          }
+        </ul>
+      </section>
+
+      <section className={styles.allEpisodes}>
+
+      </section>
+    </main>
   );
 }
 
@@ -47,7 +81,7 @@ export const getStaticProps: GetStaticProps = async () => {
       title: episode.title,
       thumbnail: episode.thumbnail,
       members: episode.members,
-      publishedAt: format(parseISO(episode.published_at), 'd MM yy', { locale: ptBR }),
+      publishedAt: format(parseISO(episode.published_at), 'd MMM yy', { locale: ptBR }),
       duration: Number(episode.file.duration),
       durationAsString: formatAudioDurationToString(Number(episode.file.duration)),
       description: episode.description,
@@ -55,9 +89,13 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   });
 
+  const latestEpisodes = episodes.slice(0, 2);
+  const allEpisodes = episodes.slice(2, episodes.length);
+
   return {
     props: {
-      episodes,
+      latestEpisodes,
+      allEpisodes
     },
     revalidate: 3600 * 8,
   };
