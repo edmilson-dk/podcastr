@@ -92,7 +92,9 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                     <img src={episode.thumbnail} />
                   </td>
                   <td>
+                    <Link href={`/episodes/${episode.id}`} prefetch={true}>
                     <a href="">{episode.title}</a>
+                    </Link>
                   </td>
                   <td>{episode.members}</td>
                   <td style={{ width: 100 }}>{episode.publishedAt}</td>
