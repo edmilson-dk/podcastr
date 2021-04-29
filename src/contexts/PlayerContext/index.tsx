@@ -30,7 +30,7 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
   }
 
   return (
-    <PlayerContext.Provider value={{ episodeList, currentEpisodeIndex }}>
+    <PlayerContext.Provider value={{ episodeList, currentEpisodeIndex, play }}>
       { children }
     </PlayerContext.Provider>
   )
