@@ -9,6 +9,8 @@ import api from "../services/api";
 import { formatAudioDurationToString } from "../utils/formatAudioDurationToString";
 
 import styles from "../styles/home.module.scss";
+import { useContext } from "react";
+import { PlayerContext } from "../contexts/PlayerContext";
 
 type Episode = {
   id: string;
@@ -27,6 +29,8 @@ type HomeProps = {
 }
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
+  const { play } = useContext(PlayerContext);
+
   return (
     <main className={styles.homePage}>
       <Head>
@@ -57,7 +61,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                     <span>{episode.durationAsString}</span>
                   </div>
 
-                  <button type="button">
+                  <button type="button" onClick={(e) => play(episode)}>
                     <img src="/play-green.svg" />
                   </button>
                 </li>
