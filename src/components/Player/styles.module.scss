@@ -110,6 +110,10 @@
 
     font-size: 0;
 
+    &:disabled {
+      cursor: not-allowed;
+    }
+
     &.playButton {
       width: 4rem;
       height: 4rem;
