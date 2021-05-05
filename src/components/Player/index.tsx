@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
@@ -11,6 +11,14 @@ export function Player() {
 
   const { episodeList, currentEpisodeIndex, isPlaying, togglePlay } = useContext(PlayerContext);
   const episode = episodeList[currentEpisodeIndex];
+
+  useEffect(() => {
+    if (!audioRef.current) return;
+
+    isPlaying
+      ? audioRef.current.play()
+      : audioRef.current.pause();
+  }, [isPlaying]);
 
   return (
     <aside className={styles.playerContainer}>
