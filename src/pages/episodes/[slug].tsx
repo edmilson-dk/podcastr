@@ -1,6 +1,7 @@
 import { format, parseISO } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { usePlayer } from "../../contexts/PlayerContext";
@@ -30,6 +31,10 @@ export default function Episode({ episode }: EpisodeProps) {
 
   return (
     <section className={styles.episode}>
+      <Head>
+        <title>{episode.title} - Home</title>
+      </Head>
+
       <div className={styles.thumbnailContainer}>
         <Link href="/">
           <button type="button">
