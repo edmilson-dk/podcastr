@@ -1,13 +1,15 @@
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
 import styles from "./styles.module.scss";
 import { usePlayer } from "../../contexts/PlayerContext";
+import { formatAudioDurationToString } from "../../utils/formatAudioDurationToString";
 
 export function Player() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [ progress, setProgress ] = useState(0);
 
   const { 
     episodeList, 
@@ -33,6 +35,14 @@ export function Player() {
       ? audioRef.current.play()
       : audioRef.current.pause();
   }, [isPlaying]);
+
+  function setupProgressListener() {
+    audioRef.current.currentTime = 0;
+
+    audioRef.current.addEventListener("timeupdate", () => {
+      setProgress(Math.floor(audioRef.current.currentTime));
+    });
+  }
 
   return (
     <aside className={styles.playerContainer}>
@@ -62,7 +72,7 @@ export function Player() {
 
       <footer className={!episode && styles.empty}>
         <div className={styles.progress}>
-          <span>00:00</span>
+          <span>{ formatAudioDurationToString(progress) }</span>
           <div className={styles.slider}>
             {
               episode ? (
@@ -70,13 +80,15 @@ export function Player() {
                   trackStyle={{ backgroundColor: "#04d361"}}
                   handleStyle={{ borderColor: "#04d361", borderWidth: 4 }}
                   railStyle={{ backgroundColor: "#9f75ff"}}
+                  max={episode.duration}
+                  value={progress}
                 />
               ) : (
                 <div className={styles.emptySlider}></div>
               )
             }
           </div>
-          <span>00:00</span>
+          <span>{ formatAudioDurationToString(episode?.duration ?? 0) }</span>
         </div>
 
         {
@@ -88,6 +100,7 @@ export function Player() {
               ref={audioRef}
               onPlay={() => setPlayingState(true)}
               onPause={() => setPlayingState(false)}
+              onLoadedMetadata={setupProgressListener}
             />
           )
         }
