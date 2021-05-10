@@ -23,7 +23,8 @@ export function Player() {
     hasPrevious,
     isLooping,
     toggleLoop,
-    toggleShuffle
+    toggleShuffle,
+    cleanPlayerState
   } = usePlayer();
 
   const episode = episodeList[currentEpisodeIndex];
@@ -42,6 +43,19 @@ export function Player() {
     audioRef.current.addEventListener("timeupdate", () => {
       setProgress(Math.floor(audioRef.current.currentTime));
     });
+  }
+
+  function handlerSeek(amount: number) {
+    audioRef.current.currentTime = amount;
+    setProgress(amount);
+  }
+
+  function handlerEpisodeEnded() {
+    if (hasNext) {
+      playNext();
+    } else {
+      cleanPlayerState();
+    }
   }
 
   return (
@@ -82,6 +96,7 @@ export function Player() {
                   railStyle={{ backgroundColor: "#9f75ff"}}
                   max={episode.duration}
                   value={progress}
+                  onChange={handlerSeek}
                 />
               ) : (
                 <div className={styles.emptySlider}></div>
@@ -96,6 +111,7 @@ export function Player() {
             <audio 
               src={episode.url}
               loop={isLooping}
+              onEnded={handlerEpisodeEnded}
               autoPlay
               ref={audioRef}
               onPlay={() => setPlayingState(true)}
